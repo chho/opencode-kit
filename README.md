@@ -11,7 +11,7 @@ This repository provides a personal OpenCode configuration that equips the AI co
 
 ## Features
 
-- **44 specialized skills** spanning Rust blockchain development, web frameworks, and browser extensions
+- **51 specialized skills** spanning Rust language, blockchain development, web frameworks, and browser extensions
 - **Custom slash commands** for common developer workflows
 - **Conventional commit enforcement** with interactive grouping and confirmation
 - **Zero external dependencies** — pure configuration, ready to use
@@ -21,6 +21,20 @@ This repository provides a personal OpenCode configuration that equips the AI co
 ## Skills
 
 Skills are organized by domain. Each lives in its own directory under `skills/` with a `SKILL.md` file containing structured instructions, code examples, and API references.
+
+### Rust Language
+
+Fundamental to advanced coverage of the [Rust](https://www.rust-lang.org/) programming language — from core syntax to concurrent systems.
+
+| Skill | Description |
+|-------|-------------|
+| `rust-core` | Language fundamentals — variables, data types, functions, structs, enums, pattern matching |
+| `rust-ownership` | Ownership rules, borrowing, references, slices, and lifetime annotations |
+| `rust-traits-generics` | Generics, trait bounds, impl Trait, where clauses, associated types, operator overloading |
+| `rust-collections-error-handling` | Vec, String, HashMap, and error handling with Result, panic!, and the `?` operator |
+| `rust-concurrency-async` | Threads, mpsc channels, Mutex, Arc, Send/Sync, async/await, futures, tokio |
+| `rust-advanced` | Smart pointers, closures, iterators, unsafe Rust, macros (declarative & procedural) |
+| `rust-project-cargo` | Cargo project setup, testing, dependencies, workspaces, release profiles, publishing |
 
 ### Alloy (Rust Ethereum Library)
 
@@ -90,6 +104,8 @@ Full-stack documentation for the [Astro](https://astro.build) web framework — 
 | `chrome-extension` | Chrome Extension development (Manifest V3) |
 | `smart-commit` | Intelligent git commit workflow |
 
+> **Total: 51 skills** (7 Rust · 15 Alloy · 19 Alloy API · 9 Astro · 1 Chrome Extension · 1 Workflow)
+
 ---
 
 ## Commands
@@ -109,6 +125,7 @@ Custom slash commands live in the `commands/` directory.
 ├── commands/                  # Custom slash commands
 │   └── smart-commit.md
 ├── skills/                    # Knowledge modules
+│   ├── rust-*/                # Rust language skills
 │   ├── alloy-*/               # Alloy (Rust Ethereum) skills
 │   ├── astro-*/               # Astro framework skills
 │   ├── chrome-extension/      # Chrome Extension development
