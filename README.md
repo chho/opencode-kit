@@ -11,7 +11,7 @@ This repository provides a personal OpenCode configuration that equips the AI co
 
 ## Features
 
-- **51 specialized skills** spanning Rust language, blockchain development, web frameworks, and browser extensions
+- **52 specialized skills** spanning Rust language, blockchain development, web frameworks, and browser extensions
 - **Custom slash commands** for common developer workflows
 - **Conventional commit enforcement** with interactive grouping and confirmation
 - **Zero external dependencies** — pure configuration, ready to use
@@ -57,6 +57,7 @@ Comprehensive coverage of the [alloy](https://github.com/alloy-rs/alloy) Rust li
 | `alloy-big-numbers` | U256 and arbitrary-precision arithmetic |
 | `alloy-comparison` | Alloy vs ethers-rs migration and comparison |
 | `alloy-advanced` | AnyNetwork, EIP-712, foundry-fork-db, Uniswap V2 arbitrage |
+| `alloy_2.0.4` | Alloy 2.0.4 unified reference — providers, signers, contracts, transports, fillers, sol! macro, primitives, RPC types |
 
 #### Alloy API Submodules
 
@@ -104,7 +105,7 @@ Full-stack documentation for the [Astro](https://astro.build) web framework — 
 | `chrome-extension` | Chrome Extension development (Manifest V3) |
 | `smart-commit` | Intelligent git commit workflow |
 
-> **Total: 51 skills** (7 Rust · 15 Alloy · 19 Alloy API · 9 Astro · 1 Chrome Extension · 1 Workflow)
+> **Total: 52 skills** (7 Rust · 15 Alloy · 19 Alloy API · 9 Astro · 1 Chrome Extension · 1 Workflow)
 
 ---
 
@@ -127,6 +128,7 @@ Custom slash commands live in the `commands/` directory.
 ├── skills/                    # Knowledge modules
 │   ├── rust-*/                # Rust language skills
 │   ├── alloy-*/               # Alloy (Rust Ethereum) skills
+│   ├── alloy_2.0.4/           # Alloy 2.0.4 unified reference
 │   ├── astro-*/               # Astro framework skills
 │   ├── chrome-extension/      # Chrome Extension development
 │   └── smart-commit/          # Smart commit workflow
