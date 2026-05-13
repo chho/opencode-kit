@@ -63,7 +63,7 @@ alloy = { version = "2", features = ["full,node-bindings"] }
 ### Building a Provider
 
 ```rust
-use alloy::providers::{Provider, ProviderBuilder};
+use alloy::providers::{Provider, ProviderBuilder, WsConnect};
 
 // Recommended fillers (gas estimation, nonce, chain ID) — auto-enabled with new()
 let provider = ProviderBuilder::new()
@@ -75,6 +75,10 @@ let provider = ProviderBuilder::new()
     .wallet(signer)
     .connect("http://localhost:8545")
     .await?;
+
+// WebSocket — MUST use WsConnect + connect_ws for pubsub subscriptions
+let ws = WsConnect::new("wss://eth-mainnet.g.alchemy.com/v2/your-api-key");
+let provider = ProviderBuilder::new().connect_ws(ws).await?;
 
 // Custom network (e.g. Optimism)
 let provider = ProviderBuilder::new_with_network::<Optimism>()
@@ -91,6 +95,8 @@ let provider: DynProvider = ProviderBuilder::new()
     .await?
     .erased();
 ```
+
+**Important:** For pubsub subscriptions (`subscribe_blocks`, `subscribe_logs`, etc.), use `WsConnect::new(url)` + `connect_ws(ws)` instead of `connect(url)`. The auto-detect `connect()` method does NOT guarantee pubsub support.
 
 ### ProviderBuilder Key Methods
 
@@ -448,13 +454,44 @@ let results = provider.multicall()
 ### Subscribe to New Blocks (WebSocket)
 
 ```rust
+use alloy::providers::{Provider, ProviderBuilder, WsConnect};
 use futures::StreamExt;
+
+let ws = WsConnect::new("wss://eth-mainnet.g.alchemy.com/v2/your-api-key");
+let provider = ProviderBuilder::new().connect_ws(ws).await?;
+
 let sub = provider.subscribe_blocks().await?;
 let mut stream = sub.into_stream().take(5);
 while let Some(header) = stream.next().await {
     println!("new block: {header:#?}");
 }
 ```
+
+### Subscribe to Logs (WebSocket)
+
+```rust
+use alloy::providers::{Provider, ProviderBuilder, WsConnect};
+use alloy::rpc::types::{BlockNumberOrTag, Filter};
+use alloy::sol_types::SolEvent;
+use futures::StreamExt;
+
+let ws = WsConnect::new("wss://eth-mainnet.g.alchemy.com/v2/your-api-key");
+let provider = ProviderBuilder::new().connect_ws(ws).await?;
+
+let filter = Filter::new()
+    .event("Transfer(address,address,uint256)")
+    .from_block(BlockNumberOrTag::Latest);
+
+let sub = provider.subscribe_logs(&filter).await?;
+let mut stream = sub.into_stream();
+
+while let Some(log) = stream.next().await {
+    let decoded = MyEvent::decode_log(&log.inner)?;
+    println!("{decoded:?}");
+}
+```
+
+**Note:** Always add `.from_block(BlockNumberOrTag::Latest)` for log subscriptions to avoid scanning historical blocks.
 
 ### Poll Logs (HTTP Alternative to Subscriptions)
 
